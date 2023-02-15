@@ -1,7 +1,7 @@
 # My Dots
-### The configs for my wm setup.
+The configs for my wm setup.
 
-#### I currently use:
+### I currently use:
 ##### Distro: Arch Linux
 ##### WM: Hyperland
 ##### Shell: bash
