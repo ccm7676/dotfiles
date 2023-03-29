@@ -1,0 +1,55 @@
+
+(defpoll hour :interval "1s"
+              :initial "initial-value"  ; optional, defaults to poll at startup
+              :run-while time-visible   ; optional, defaults to 'true'
+  `date +%H`)
+
+
+(defpoll min :interval "1s"
+              :initial "initial-value"  ; optional, defaults to poll at startup
+              :run-while time-visible   ; optional, defaults to 'true'
+  `date +%M`)
+
+
+
+
+(defpoll song-title :interval "1s" :initial "No song playing" `playerctl metadata title`)
+
+(defpoll artist-name :interval "1s" :initial "" `playerctl metadata artist`)
+
+(defwidget time-widget []
+  (box :class "time-container" :width "100%" :orientation "vertical" 
+    (box :class "time-container" hour (children :nth 0))
+    (box :class "min-container" min (children :nth 1))))
+
+(defwidget bar-widget []
+  (box :class "bar-container" :orientation "vertical" (time-widget)))
+
+(defwidget song-widget []
+  (box :class "song-container" :orientation "vertical" :valign "center" :halign "left" 
+    (box :halign "left" :class "title-container" song-title (children :nth 0))
+    (box :halign "left" :class "artist-container" artist-name (children :nth 1))))
+
+(defwindow bar
+           :class "sidebar"
+           :orientation "vertical"
+           :exclusive true
+           :monitor 0
+           :geometry (geometry :x "10px"
+                               :y "0"
+                               :width "30px"
+                               :height "980px"
+                               :anchor "left center")
+           :stacking "fg"
+  (time-widget))
+
+(defwindow music
+           :class "music-window"
+           :orientation "horizontal"
+           :monitor 0
+           :geometry (geometry :x "300px"
+                               :y "250px"
+                               :width "400px"
+                               :height "200px")
+           :stacking "bg"
+  (song-widget))
