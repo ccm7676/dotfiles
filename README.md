@@ -2,7 +2,7 @@
 The configs for my wm setup.
 
 ### I currently use:
-##### Distro: Arch Linux
+##### Distro: Nix Os
 ##### WM: Hyperland
 ##### Shell: bash
 ##### Fetch: Neofetch
