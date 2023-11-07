@@ -21,6 +21,9 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  
+  users.defaultUserShell = pkgs.zsh;
+  environment.shells = with pkgs; [ zsh ];
  
   services.physlock.enable = true;
   services.physlock.allowAnyUser = true;
@@ -32,8 +35,22 @@
     idleAction=suspend-then-hibernate
     idleActionSec=15min";
 
+  programs.zsh = {
+    enable = true;
+    shellAliases = {
+      ll = "ls -l";
+      update = "sudo nixos-rebuild switch";
+    };
+    histSize = 10000;
+    histFile = "$HOME/.zsh_history";
+   
+    promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme"; 
 
-  networking.hostName = "device";
+    autosuggestions.enable = true;
+    enableCompletion = true;
+    syntaxHighlighting.enable = true; 
+  };
+    networking.hostName = "device";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -100,6 +117,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
    environment.systemPackages = with pkgs; [
+      thefuck
+      zsh-powerlevel10k
       vim
       pfetch
       wget
