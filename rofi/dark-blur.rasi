@@ -1,51 +1,52 @@
 window {
 	margin: 10px;
-	width: 400px;
-	height: 300px;
+	width: 600px;
+	height: 500px;
 	location: center;
 	border-radius: 10px;
-	transparency: "background";
-	background-color: #000000AA;
-  border: 2px;
-  border-color: #FFFFFF;
+	transparency: "real";
+	background-color: #1E2631;
+  	border: 2px;
+  	border-color: #1E2631;
+	padding: 0px 0px 3px 0px;
 }
 mainbox {
 	children: [inputbar,listview];
 	border-radius: 15px;
-	background-color: #00000000;
+	background-color: #1E2631;
 }
 
 inputbar{
 	children: [entry,overlay];
-	padding: 0px;
-	border-radius: 10px;
-	background-color: #000000;
+	margin: 10px 20px;
+	border:0px 0px 2px 0px;
+	border-color: #2E3641;
+	background-color: #1E2631;
 }
 
 entry {
 	padding: 3px 3px 0px 3px;
 	margin: 10px;	
 	border-radius: 3px;
-	background-color: #000000;
-	border-color: #ffffff;
-	border: 1px;
-	color: #ffffff;
+	background-color: #1E2631;
+	color: #7F96B5;
 }
 
 listview {
-	margin: 0px 10px 10px 10px;
-	background-color: #000000;
+	margin: 0px 15px 0px 15px;
+	background-color: #1E2631;
+	border-radius: 0px;
 }
 
 element {
-	padding: 3px;
-	border-radius: 0px;
-	background-color: #000000;
+	padding: 15px;
+	border-radius: 10px;
+	background-color: #2B3543;
+	margin: 0px 0px 6px 0px;
 }
 element.selected {
 	border: 1px;
-	border-color: #ffffff;
-  background-color: #ffffff;
+  	background-color: #7F96B5;
 }
 element-text.selected {
 	background-color: #00000000;
@@ -53,6 +54,6 @@ element-text.selected {
 }
 
 element-text {
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: #2B3543;
+  color: #7F96B5;
 }
