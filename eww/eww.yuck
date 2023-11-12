@@ -1,55 +1,59 @@
-
-(defpoll hour :interval "1s"
-              :initial "initial-value"  ; optional, defaults to poll at startup
-              :run-while time-visible   ; optional, defaults to 'true'
-  `date +%H`)
-
-
-(defpoll min :interval "1s"
-              :initial "initial-value"  ; optional, defaults to poll at startup
-              :run-while time-visible   ; optional, defaults to 'true'
-  `date +%M`)
+(defwidget bar [] 
+  (box :orientation "v"
+    (time)
+    (buttons)))
 
 
+(defwidget time []
+  (box :vexpand "false" :height "100" :class "time" :orientation "v" :halign "bottom"
+    (label :class "hours" :text hours)
+    (label :class "mins" :text mins)
+    (battery)))
+
+(defwidget battery []
+  (box :class "bat" :orientation "h"
+    (label :class "bat-txt" :text bat)
+    (label :class "perc" :text "%")))
 
 
-(defpoll song-title :interval "1s" :initial "No song playing" `playerctl metadata title`)
+(defwidget buttons []
+  (box :class "btn-container" :orientation "v"
+    (wifibtn)
+    (btbtn)
+    (powerbtn)))
 
-(defpoll artist-name :interval "1s" :initial "" `playerctl metadata artist`)
+(defwidget powerbtn []
+  (box :class "btn shift" :space-evenly true :orientation "v" :halign "top"
+    (button :onclick "date" "")))
 
-(defwidget time-widget []
-  (box :class "time-container" :width "100%" :orientation "vertical" 
-    (box :class "time-container" hour (children :nth 0))
-    (box :class "min-container" min (children :nth 1))))
 
-(defwidget bar-widget []
-  (box :class "bar-container" :orientation "vertical" (time-widget)))
+(defwidget btbtn []
+  (box :class "btn" :orientation "v" :halign "top"
+    (button :onclick "date" "󰂯")))
 
-(defwidget song-widget []
-  (box :class "song-container" :orientation "vertical" :valign "center" :halign "left" 
-    (box :halign "left" :class "title-container" song-title (children :nth 0))
-    (box :halign "left" :class "artist-container" artist-name (children :nth 1))))
+
+(defwidget wifibtn []
+  (box :class "btn shift" :orientation "v" :halign "top"
+    (button :onclick "date" "󰖩")))
+
+(defpoll hours :interval "1s"
+  "date '+%H'")
+
+(defpoll mins :interval "1s"
+  "date '+%M'")
+
+(defpoll bat :interval "30s"
+  "cat /sys/class/power_supply/BAT1/capacity")
+
 
 (defwindow bar
-           :class "sidebar"
-           :orientation "vertical"
-           :exclusive true
-           :monitor 0
-           :geometry (geometry :x "10px"
-                               :y "0"
-                               :width "30px"
-                               :height "980px"
-                               :anchor "left center")
-           :stacking "fg"
-  (time-widget))
+  :orientation "v"
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "1050px"
+                      :y "262px"
+                      :width "60px"
+                      :height "479px")
+  (bar))
 
-(defwindow music
-           :class "music-window"
-           :orientation "horizontal"
-           :monitor 0
-           :geometry (geometry :x "300px"
-                               :y "250px"
-                               :width "400px"
-                               :height "200px")
-           :stacking "bg"
-  (song-widget))
+

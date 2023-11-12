@@ -1,23 +1,46 @@
-*{
-	all: unset;
-	font-family: Roboto;
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
 }
 
-
-
-.time-container, .song-container {
+.bar {
+  background-color: #1E2631;
   border-radius: 10px;
-  background-color: #1e1e2e;
-  color: #ffffff;
-  opacity: 0.8;
-
 }
 
-.title-container {
+.time {
+  color: #7F96B5;
+  font-family: Blippo;
+  font-size: 30px;
+}
+
+.btn button{
+  color: #7F96B5;
+  font-size: 30px;
+  transition: 0.2s ease;
+}
+
+.btn button:hover {
+  color: #FFFFFF;
+}
+
+.shift button{
+  margin-left: -7px;
+}
+
+.bat {
+  color: #7F96B5;
+  font-family: Blippo;
   font-size: 20px;
-  font-weight: bold;
 }
 
-.artist-container {
-  font-size: 18px;
+.bat-txt {
+	margin-left: 10px;
+}
+
+.perc {
+	margin-left: -5px;
+}
+
+.mins {
+	margin-top: -70px;
 }
