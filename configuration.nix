@@ -14,7 +14,6 @@
   hardware.bluetooth.enable = true;
 
   programs.hyprland.enable = true;
-  programs.hyprland.xwayland.hidpi = true;
   programs.hyprland.xwayland.enable = true; 
 
   services.flatpak.enable = true;
@@ -40,6 +39,7 @@
     shellAliases = {
       ll = "ls -l";
       update = "sudo nixos-rebuild switch";
+      vim = "nvim";
     };
     histSize = 10000;
     histFile = "$HOME/.zsh_history";
@@ -53,6 +53,7 @@
     networking.hostName = "device";
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;
+  networking.nameservers = ["9.9.9.9" "149.112.112.112"];
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   security.pki.certificateFiles = ["/etc/ssl/certs/SCHOOL-BRY-AD1-CA"];
   # Set your time zone.
@@ -108,6 +109,8 @@
      isNormalUser = true;
      extraGroups = [ "wheel" "networkmanager"]; 
      packages = with pkgs; [
+       gparted
+       wireguard-tools
        flatpak
        kitty
        hyprpaper
@@ -117,18 +120,21 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
    environment.systemPackages = with pkgs; [
-      thefuck
       zsh-powerlevel10k
       vim
       pfetch
+      nix-index
+      pkg-config
       wget
       sudo
+      btop
       rustc
       gnome.gnome-keyring
       pw-volume
       physlock
-      gnome.gnome-software
    ];
+  
+  nix.package = pkgs.nixStable;
 
   services.gnome.gnome-keyring.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
@@ -162,6 +168,9 @@
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
+
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = false;
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -179,6 +188,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 
 }
+
